@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#173b35"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="SmartReply"><meta name="description" content="Помощник для ответов родителям — SmartReplyAssistant"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><link rel="stylesheet" href="style.css"><title>SmartReplyAssistant</title>
+</head>
+<body>
+<header class="topbar"><div class="brandmark">SR</div><div class="brand"><strong>SmartReply</strong><span>Помощник для общения с родителями</span></div><button class="icon-btn" id="settingsBtn" aria-label="Настройки">⚙</button></header>
+<main class="app-shell">
+<nav class="tabs" aria-label="Разделы"><button class="tab active" data-tab="reply">Ответ родителю</button><button class="tab" data-tab="knowledge">База знаний</button></nav>
+<section id="replyView" class="view">
+<div class="section-heading"><div><p class="eyebrow">ШАГ 1 · КОНТЕКСТ</p><h1>Переписка</h1></div><button id="clearChat" class="text-btn">Очистить</button></div>
+<label class="field-label" for="chatInput">Вставь переписку с родителем</label><textarea id="chatInput" class="chat-input" rows="7" placeholder="Вставь сюда сообщения из WhatsApp, Telegram или другого мессенджера…"></textarea>
+<div class="hint">Можно вставить несколько сообщений. Ничего не отправляется автоматически.</div>
+<div class="action-row"><button class="btn primary" id="analyzeBtn">Разобрать переписку</button><button class="btn secondary" id="demoBtn">Пример</button></div>
+<div class="facts-card"><div class="card-head"><div><p class="eyebrow">ШАГ 2 · ЧТО УЖЕ ИЗВЕСТНО</p><h2>Данные родителя</h2></div><span class="status-dot">Локально</span></div><div id="facts" class="facts-grid"><div class="fact"><span>Возраст ребёнка</span><strong>Пока не указан</strong></div><div class="fact"><span>Направление</span><strong>Пока не указано</strong></div><div class="fact"><span>Филиал</span><strong>Пока не указан</strong></div></div><div id="questions" class="questions"></div></div>
+<div class="section-heading response-heading"><div><p class="eyebrow">ШАГ 3 · ЧЕРНОВИК</p><h2>Предложенный ответ</h2></div><span class="step-counter" id="stepCounter">Блок 1 из 4</span></div>
+<div class="block-strip"><button id="prevBlock" class="round-btn" aria-label="Предыдущий блок">‹</button><div class="current-block"><strong id="currentBlockTitle">Первое обращение</strong><span id="currentBlockDesc">Приветствие и уточнение запроса</span></div><button id="nextBlock" class="round-btn" aria-label="Следующий блок">›</button></div>
+<label class="field-label" for="replyOutput">Ответ можно изменить перед копированием</label><textarea id="replyOutput" class="reply-output" rows="8" placeholder="Нажми «Разобрать переписку», чтобы подготовить черновик…"></textarea>
+<div class="action-row"><button class="btn primary" id="copyBtn">Копировать ответ</button><button class="btn secondary" id="generateBtn">Обновить черновик</button></div><p id="toast" class="toast" role="status" aria-live="polite"></p>
+<div class="privacy-note"><span>🔒</span><span>Переписка и база знаний хранятся в браузере на этом устройстве. В этой версии ИИ-сервис не подключён.</span></div>
+</section>
+<section id="knowledgeView" class="view hidden">
+<div class="section-heading"><div><p class="eyebrow">НАСТРОЙКА ОТВЕТОВ</p><h1>База знаний</h1></div><button id="addBlock" class="btn primary small">＋ Добавить</button></div>
+<p class="muted">Заполни проверенную информацию о занятиях, филиалах, расписании и записи. Приложение использует её в черновиках.</p><div id="blocksList" class="blocks-list"></div>
+<div class="data-actions"><button class="btn secondary" id="exportBtn">Экспорт базы</button><button class="btn secondary" id="importBtn">Импорт базы</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
+<div class="privacy-note"><span>💾</span><span>Чтобы перенести базу на другой телефон, используй экспорт, а затем импорт на новом устройстве.</span></div>
+</section>
+</main>
+<dialog id="blockDialog"><form method="dialog" id="blockForm"><div class="dialog-head"><h2 id="dialogTitle">Редактировать блок</h2><button class="icon-btn" value="cancel" aria-label="Закрыть">✕</button></div><label class="field-label" for="blockName">Название блока</label><input id="blockName" class="text-input" required maxlength="70"><label class="field-label" for="blockDesc">Краткое описание</label><input id="blockDesc" class="text-input" maxlength="120"><label class="field-label" for="blockContent">Текст и проверенная информация</label><textarea id="blockContent" class="text-input" rows="9" required></textarea><div class="dialog-actions"><button class="btn secondary" value="cancel">Отмена</button><button class="btn primary" id="saveBlock" value="default">Сохранить</button></div><button type="button" id="deleteBlock" class="danger-link">Удалить блок</button></form></dialog>
+<dialog id="settingsDialog"><form method="dialog"><div class="dialog-head"><h2>Настройки</h2><button class="icon-btn" value="cancel" aria-label="Закрыть">✕</button></div><p class="muted">Все данные сохраняются в локальном хранилище браузера этого устройства.</p><button type="button" class="btn secondary full" id="resetBtn">Сбросить приложение</button><div class="hint">Сброс удалит сохранённую переписку и изменения базы знаний с этого устройства.</div></form></dialog>
+<script src="app.js"></script>
+</body></html>
